@@ -11,6 +11,8 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    z-index: 1;
+    position: relative;
 }
 
 /* Heading Styles */
@@ -126,9 +128,15 @@ p {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
+    z-index: 1000;
 }
 
 
 .logout-link:hover {
     background-color: #cc0000;
+}
+
+
+.hidden {
+    display: none;
 }

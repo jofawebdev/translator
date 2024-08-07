@@ -10,7 +10,7 @@
 
     <body>
         {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+        <a href="{% url 'logout' %}" class="logout-link" id="logoutLink">Logout</a>
         {% endif %}
         
         <div class="container">
@@ -97,5 +97,7 @@
 
 
         </div>
+
+        <script src="{% static 'translator/js/index.js' %}"></script>
     </body>
 </html>

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from googletrans import Translator
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Translation
+from .forms import CustomUserCreationForm
 
 # Create your views here.
 @login_required
@@ -36,6 +38,31 @@ def translate_text(request):
         return render(request, 'translator/index.html', context)
     else:
         return render(request, 'translator/index.html')
+    
+
+
+def register(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('translate_text') # redirect to the translation page after registration
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('translate_text')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form':form})
     
 
 
